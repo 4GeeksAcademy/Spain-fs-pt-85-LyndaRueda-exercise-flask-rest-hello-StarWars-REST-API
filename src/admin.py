@@ -6,6 +6,10 @@ from wtforms import PasswordField
 from wtforms.validators import InputRequired
 from models import db, User, Character, Episode, Location, Favorite
 
+class View_Favorite(ModelView):
+    form_columns = ['user_id', 'character_id', 'episode_id', 'location_id']
+    column_list = ('user_id', 'character_id', 'episode_id', 'location_id')
+
 class UserAdmin(ModelView):
     form_base_class = SecureForm
 
@@ -19,4 +23,4 @@ def setup_admin(app):
     admin.add_view(ModelView(Character, db.session))
     admin.add_view(ModelView(Episode, db.session))
     admin.add_view(ModelView(Location, db.session))
-    admin.add_view(ModelView(Favorite, db.session))
+    admin.add_view(View_Favorite(Favorite, db.session))
